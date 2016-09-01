@@ -45,11 +45,26 @@ public class Solution {
     return j;
   }
 
+  public int removeElement3(int[] nums, int val) {
+    int i = 0;
+    int n = nums.length;
+    while(i < n){
+      if(nums[i] == val){
+        nums[i] = nums[n-1];
+        n--;
+      }else{
+        i++;
+      }
+    }
+
+    return i;
+  }
+
 
   public static void main(String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
-    int count = solution.removeElement2(nums, 2);
+    int count = solution.removeElement3(nums, 2);
     System.out.println("count: " + count);
     for(int i = 0; i < count; i++){
       System.out.println(nums[i]);
