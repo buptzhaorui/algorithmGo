@@ -32,10 +32,24 @@ public class Solution {
   }
 
 
+  public int removeElement2(int[] nums, int val) {
+    int j = 0;
+
+    for(int i = 0; i < nums.length; i++) {
+      if(nums[i] != val){
+        nums[j] = nums[i];
+        j++;
+      }
+    }
+
+    return j;
+  }
+
+
   public static void main(String[] args) {
-    int[] nums = new int[]{3};
+    int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
-    int count = solution.removeElement(nums, 2);
+    int count = solution.removeElement2(nums, 2);
     System.out.println("count: " + count);
     for(int i = 0; i < count; i++){
       System.out.println(nums[i]);
