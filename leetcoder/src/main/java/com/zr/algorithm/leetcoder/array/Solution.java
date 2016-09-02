@@ -107,6 +107,36 @@ public class Solution {
     return count;
   }
 
+  public void merge(int[] nums1, int m, int[] nums2, int n) {
+    int i1 = m-1;
+    int i2 = n-1;
+    int i = m+n-1;
+
+    while(i1 >= 0 && i2 >= 0){
+      if(nums1[i1] > nums2[i2]){
+        nums1[i] = nums1[i1];
+        i1--;
+        i--;
+      }else{
+        nums1[i] = nums2[i2];
+        i2--;
+        i--;
+      }
+    }
+    if(i1 < 0){
+      for( ; i2 >= 0; i2--){
+        nums1[i] = nums2[i2];
+        i--;
+      }
+    }else{
+      for( ; i1 >= 0; i1--){
+        nums1[i] = nums1[i1];
+        i--;
+      }
+    }
+  }
+
+
   public static void main(String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
@@ -115,7 +145,8 @@ public class Solution {
 //    for(int i = 0; i < count; i++){
 //      System.out.println(nums[i]);
 //    }
-    System.out.print(solution.countPrimes2(4999999));
+//    System.out.print(solution.countPrimes2(4999999));
+    int[] nums1 = new int[]{1,2,3};
 
   }
 }
