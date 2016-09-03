@@ -1,6 +1,8 @@
 package com.zr.algorithm.leetcoder.array;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * User: zhaorui
@@ -238,6 +240,45 @@ public class Solution {
     return i;
   }
 
+  public boolean containsNearbyDuplicate(int[] nums, int k) {
+    boolean b = false;
+    int n = nums.length;
+
+    for(int i = 0; i < k; i++){
+      for(int j = i; j < n; j += k){
+        for(int m = j; m <= j + k && m < n; m++)
+          if(nums[j] == nums[m]){
+            b = true;
+            break;
+          }
+      }
+    }
+
+    return b;
+  }
+
+  public boolean containsNearbyDuplicate2(int[] nums, int k) {
+    HashSet<Integer> set = new HashSet<>();
+    for(int i = 0; i < nums.length; i++) {
+      if (i > k) set.remove(nums[i - k - 1]);
+      if (!set.add(nums[i])) return true;
+    }
+
+    return false;
+  }
+
+  public int[] twoSum(int[] nums, int target) {
+    HashMap<Integer, Integer> map = new HashMap<>();
+    for(int i = 0; i < nums.length; i++){
+      Integer value = map.get(target - nums[i]);
+      if(value == null){
+        map.put(nums[i], i);
+      }else{
+        return new int[]{value, i};
+      }
+    }
+    return new int[]{};
+  }
 
   public static void main(String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
