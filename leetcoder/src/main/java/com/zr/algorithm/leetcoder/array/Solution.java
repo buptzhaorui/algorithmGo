@@ -1,5 +1,7 @@
 package com.zr.algorithm.leetcoder.array;
 
+import java.util.Arrays;
+
 /**
  * User: zhaorui
  * Date: 2016/9/1
@@ -180,6 +182,7 @@ public class Solution {
         }else{
           count--;
         }
+      }
     }
     return candidate;
   }
@@ -201,6 +204,39 @@ public class Solution {
     }
   }
 
+  public void rotate2(int[] nums, int k) {
+    int n = nums.length;
+    k = k%n;
+    int[] temp = Arrays.copyOfRange(nums, 0, n-k);
+    System.arraycopy(nums, n-k, nums, 0, k);
+    System.arraycopy(temp, 0, nums, k, n-k);
+  }
+
+  public int removeDuplicates(int[] nums) {
+    int n = nums.length;
+    int count = 0;
+    for(int i = 0; i < n; i++){
+      while(i < n && nums[i] == nums[count]){
+        i++;
+      }
+      if(i == n){
+        break;
+      }else{
+        nums[++count] = nums[i];
+      }
+    }
+    return n == 0 ? 0 : (count + 1);
+  }
+
+  public int removeDuplicates2(int[] nums) {
+    int i = nums.length > 0 ? 1 : 0;
+    for(int n: nums){
+      if(nums[i-1]< n){
+        nums[i++] = n;
+      }
+    }
+    return i;
+  }
 
 
   public static void main(String[] args) {
