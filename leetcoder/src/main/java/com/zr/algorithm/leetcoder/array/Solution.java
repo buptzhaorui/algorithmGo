@@ -137,6 +137,72 @@ public class Solution {
   }
 
 
+  public int[] plusOne(int[] digits) {
+    int size = digits.length;
+    int carry = 1;
+
+    for(int i = size - 1; i >= 0; i--){
+      if(carry == 1){
+        int tmp = (digits[i] + 1) % 10;
+        carry = (digits[i] + 1) / 10;
+        digits[i] = tmp;
+      }else{
+        break;
+      }
+    }
+
+    if(carry == 1){
+      int[] rst = new int[size+1];
+      rst[0] = 1;
+      for(int i = 1; i <= size; i++){
+        rst[i] = digits[i-1];
+      }
+      return rst;
+    }else{
+      return digits;
+    }
+
+  }
+
+  /**
+   *  注意题中说众数出现的次数大于n/2的下取整，成对删除不同的两个数，留到最后的就是众数
+   */
+  public int majorityElement(int[] nums) {
+    int candidate = 0;
+    int count = 0;
+    for(int i = 0; i < nums.length; i++){
+      if(count == 0){
+        candidate = nums[i];
+        count ++;
+      }else{
+        if(candidate == nums[i]){
+          count++;
+        }else{
+          count--;
+        }
+    }
+    return candidate;
+  }
+
+  public void rotate(int[] nums, int k) {
+    int n = nums.length;
+    k = k % n;
+    if(k != 0){
+      int[] tmp = new int[k];
+      for(int i = 0; i < k; i++){
+        tmp[i] = nums[n-k+i];
+      }
+      for(int i = n - k -1; i >= 0; i--){
+        nums[i+k] = nums[i];
+      }
+      for(int i = 0; i < k; i++){
+        nums[i] = tmp[i];
+      }
+    }
+  }
+
+
+
   public static void main(String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
