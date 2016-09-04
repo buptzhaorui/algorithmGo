@@ -1,8 +1,6 @@
 package com.zr.algorithm.leetcoder.array;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * User: zhaorui
@@ -278,6 +276,66 @@ public class Solution {
       }
     }
     return new int[]{};
+  }
+
+  public List<List<Integer>> generate(int numRows) {
+    Double[] nums = new Double[numRows];
+    List<List<Integer>> rst = new ArrayList<>();
+    for(int i = 0; i < numRows; i ++){
+      if(i == 0) nums[i] = 1d;
+      else nums[i] = nums[i-1]*i;
+      List<Integer> rows = new ArrayList<>();
+      for(int j = 0; j <= i; j++){
+        Double value = nums[i]/(nums[j]*nums[i-j]);
+        rows.add(value.intValue());
+        rows.add(0, 1);
+      }
+      rst.add(rows);
+    }
+    return rst;
+  }
+
+  public List<List<Integer>> generate2(int numRows) {
+    List<List<Integer>> rst = new ArrayList<>();
+    List<Integer> row = new ArrayList<>();
+    for(int i = 0; i < numRows; i ++){
+      row.add(0, 1);
+      for(int j = 1; j < row.size() - 1; j++){
+        row.set(j, row.get(j) + row.get(j+1));
+      }
+      rst.add(row);
+    }
+    return rst;
+  }
+
+  public List<List<Integer>> generate3(int numRows) {
+    List<List<Integer>> triangle = new ArrayList<List<Integer>>();
+    if (numRows <=0){
+      return triangle;
+    }
+    for (int i=0; i<numRows; i++){
+      List<Integer> row =  new ArrayList<Integer>();
+      for (int j=0; j<i+1; j++){
+        if (j==0 || j==i){
+          row.add(1);
+        } else {
+          row.add(triangle.get(i-1).get(j-1)+triangle.get(i-1).get(j));
+        }
+      }
+      triangle.add(row);
+    }
+    return triangle;
+  }
+
+  public List<Integer> getRow(int rowIndex) {
+    List<Integer> row = new ArrayList<>();
+    for(int i = 0; i <= rowIndex; i++){
+      row.add(0, 1);
+      for(int j = 1; j < i; j++){
+        row.set(j, row.get(j)+row.get(j+1));
+      }
+    }
+    return row;
   }
 
   public static void main(String[] args) {
