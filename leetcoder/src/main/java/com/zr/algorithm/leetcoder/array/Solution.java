@@ -338,6 +338,121 @@ public class Solution {
     return row;
   }
 
+
+  public void moveZeroes(int[] nums) {
+    int n = nums.length;
+    int j = 1;
+    for(int i = 0; i < n; i++){
+      if(nums[i] == 0){
+        while(j < n && nums[j] == 0){
+          j++;
+        }
+        if( j == n){
+          break;
+        }else{
+          int tmp = nums[j];
+          nums[j] = nums[i];
+          nums[i] = tmp;
+        }
+      }else{
+        j++;
+      }
+    }
+  }
+
+  public void moveZeroes2(int[] nums) {
+    if  (nums==null) return;
+    int zeroCount = 0;
+    for (int i = 0;i < nums.length; i++) {
+      if (nums[i] == 0) {
+        zeroCount++;
+      } else {
+        nums[i - zeroCount] = nums[i];
+      }
+    }
+    while (zeroCount > 0) {
+      nums[nums.length - zeroCount--] = 0;
+    }
+  }
+
+  public void moveZeroes3(int[] nums){
+    int index = 0;
+    for(int num: nums){
+      if(num != 0){
+        nums[index++] = num;
+      }
+    }
+    while(index < nums.length){
+      nums[index++] = 0;
+    }
+  }
+
+  public int maxProfit(int[] prices) { //当前的值减去之前最小的
+    int profit = 0;
+    int min = Integer.MAX_VALUE;
+    for(int price: prices){
+      min = Integer.min(price, min);
+      profit = Integer.max(price - min, profit);
+    }
+    return profit;
+  }
+
+  public int maxProfit2(int[] prices) {
+    int ans=0;
+    if(prices.length==0)
+    {
+      return ans;
+    }
+    int bought=prices[0];
+    for(int i=1;i<prices.length;i++)
+    {
+      if(prices[i]>bought)
+      {
+        if(ans<(prices[i]-bought))
+        {
+          ans=prices[i]-bought;
+        }
+      }
+      else
+      {
+        bought=prices[i];
+      }
+    }
+    return ans;
+  }
+
+  public boolean containsDuplicate(int[] nums) {
+    HashSet<Integer> set = new HashSet<>();
+    for(int num: nums){
+      if(set.contains(num)) return true;
+      else set.add(num);
+    }
+    return false;
+
+  }
+
+  public boolean containsDuplicate2(int[] nums) {
+
+    Arrays.sort(nums);
+    for(int ind = 1; ind < nums.length; ind++) {
+      if(nums[ind] == nums[ind - 1]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public int maxProfit3(int[] prices) {
+    int profit = 0;
+    for(int i = 0; i < prices.length; i++){
+      int diff = prices[i+1] - prices[i];
+      if(diff > 0){
+        profit += diff;
+      }
+    }
+    return profit;
+  }
+
   public static void main(String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
