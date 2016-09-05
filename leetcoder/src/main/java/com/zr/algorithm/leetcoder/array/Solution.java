@@ -453,6 +453,73 @@ public class Solution {
     return profit;
   }
 
+  private int pathSum(int[][] grid, int m, int n) {
+    int sum = 0;
+    if(m == 0 || n == 0){
+      return sum;
+    }else if(m == 1){
+      for(int i = 0; i < n; i++){
+        sum += grid[0][i];
+      }
+    }else if(n == 1){
+      for(int i = 0; i < n; i++){
+        sum += grid[i][0];
+      }
+    }else{
+      sum = Integer.min(pathSum(grid, m, n-1) + grid[m-1][n-1], pathSum(grid, m-1, n) + grid[m-1][n-1]);
+    }
+    return sum;
+  }
+
+  public int minPathSum(int[][] grid) {
+    int m = grid.length;
+    if(m == 0) return 0;
+    else return pathSum(grid, m, grid[0].length);
+  }
+
+  public int minPathSum2(int[][] grid) {
+    int m = grid.length;// row
+    int n = grid[0].length; // column
+    for(int j = 1; j < n; j++) grid[0][j] = grid[0][j] + grid[0][j-1];
+    for(int i = 1; i < m; i++) grid[i][0] = grid[i][0] + grid[i-1][0];
+    for (int i = 1; i < m; i++) {
+      for (int j = 1; j < n; j++) {
+        grid[i][j] = Math.min(grid[i][j - 1], grid[i - 1][j]) + grid[i][j];
+      }
+    }
+    return grid[m - 1][n - 1];
+  }
+
+  public int search(int[] nums, int target) {
+    int n = nums.length;
+    int left = 0;
+    int right = n-1;
+
+    while(left < right){
+      int mid = (left + right) >> 1;
+
+      if(nums[mid] == target) return mid;
+
+      if(nums[left] <= target && target < nums[mid]){
+        right = mid - 1;
+      }else if(nums[mid] < target && target <= nums[right]){
+        left = mid + 1;
+      }else{
+        if(nums[left] > nums[mid]){
+          right = mid - 1;
+        }else if(nums[mid] > nums[right]){
+          left = mid + 1;
+        }else{
+          return -1;
+        }
+      }
+
+    }
+
+    if(nums[left] == target) return left;
+    else return -1;
+  }
+
   public static void main(String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
