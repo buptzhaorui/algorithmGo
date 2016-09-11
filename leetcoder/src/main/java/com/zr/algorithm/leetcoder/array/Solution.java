@@ -590,6 +590,25 @@ public class Solution {
     return low;
   }
 
+  public int findMin(int[] nums) {
+    int left = 0;
+    int right = nums.length - 1;
+    while(left < right){
+      int mid = (left + right) >> 1;
+      if(nums[left] <= nums[mid]){ //left is sorted
+        if(nums[mid] <= nums[right]){ //right is sorted
+          return nums[left];
+        }else{
+          left = mid + 1;
+        }
+      }else{
+        right = mid;
+      }
+    }
+
+    return nums[left];
+  }
+
   public static void main(String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
