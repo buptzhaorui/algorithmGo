@@ -565,6 +565,31 @@ public class Solution {
     return obstacleGrid[m-1][n-1];
   }
 
+  public int findPeakElement(int[] nums) {
+    int index = 0;
+    for(int i = 0; i < nums.length; i++){
+      if(nums[i] >= nums[index]) index++;
+      else break;
+    }
+    return index;
+  }
+
+  public int findPeakElement2(int[] nums) {
+    int low = 0;
+    int high = nums.length-1;
+
+    while(low < high)
+    {
+      int mid1 = (low+high)/2;
+      int mid2 = mid1+1;
+      if(nums[mid1] < nums[mid2])
+        low = mid2;
+      else
+        high = mid1;
+    }
+    return low;
+  }
+
   public static void main(String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
