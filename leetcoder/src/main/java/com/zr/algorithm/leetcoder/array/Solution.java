@@ -622,6 +622,37 @@ public class Solution {
     return product;
   }
 
+  public void gameOfLife(int[][] board) {
+    // 0 dead -> dead
+    // 1 alive -> alive
+    // 2 alive -> dead
+    // 3 dead -> alive
+    int rows = board.length;
+    if(rows == 0) return;
+
+    int cols = board[0].length;
+    int[] dx = new int[]{-1, -1, -1, 0, 0, 1, 1, 1};
+    int[] dy = new int[]{-1, 0, 1, -1, 1, -1, 0, 1};
+    for(int row = 0; row < rows; row ++){
+      for(int col = 0; col < cols; col ++){
+        int aliveAround = 0;
+        for(int i = 0; i < 8; i++){
+          int x = row + dx[i];
+          int y = col + dy[i];
+          if(x >= 0 && x < rows && y >= 0 && y < cols && (board[x][y] == 1 || board[x][y] == 2)){
+            aliveAround ++;
+          }
+        }
+        if(board[row][col] == 1 && (aliveAround < 2 || aliveAround > 3)) board[row][col] = 2;
+        if(board[row][col] == 0 && aliveAround == 3) board[row][col] = 3;
+      }
+    }
+
+    for(int row = 0; row < rows; row ++)
+      for(int col = 0; col < cols; col ++)
+        board[row][col] %= 2;
+  }
+
   public static void main(String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
