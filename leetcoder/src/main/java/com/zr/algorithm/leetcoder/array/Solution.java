@@ -609,6 +609,19 @@ public class Solution {
     return nums[left];
   }
 
+  public int maxProduct(int[] nums) {
+    int product = nums[0];
+    int maxPositive = nums[0];
+    int minNegative = nums[0];
+    for(int i = 1; i < nums.length; i++){
+      int tmp = maxPositive;
+      maxPositive = Math.max(maxPositive * nums[i], Math.max(minNegative * nums[i], nums[i]));
+      minNegative = Math.min(tmp * nums[i], Math.min(minNegative * nums[i], nums[i]));
+      product = Math.max(product, maxPositive);
+    }
+    return product;
+  }
+
   public static void main(String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
