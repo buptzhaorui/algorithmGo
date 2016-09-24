@@ -653,6 +653,97 @@ public class Solution {
         board[row][col] %= 2;
   }
 
+  //递归回溯
+  public void recursiveBack(int[] s, int n, int k, int l) {
+    for(s[l] = s[l-1] + 1; s[l] < n; s[l] ++){
+      if(l == k){
+        for(int i = 1; i <= k; i++)
+          System.out.print(s[i] + " ");
+        System.out.println();
+      }else{
+        recursiveBack(s, n, k, l+1);
+      }
+    }
+  }
+
+  public void forBack(int[] s, int n, int k, int l) {
+    s[l] = 0;
+    while(l != 0){
+      while(s[l] < n){
+        if(l == k){
+          System.out.println();
+          s[l] += 1;
+        }else{
+          l += 1;
+          s[l] += 1;
+        }
+      }
+      l --;
+      s[l] += 1;
+    }
+  }
+
+  public List<List<Integer>> subsets(int[] nums) {
+    List<List<Integer>> rst = new ArrayList<>();
+    int n = nums.length;
+    int max = 1 << n;
+    for(int i = 0; i < max; i++){
+      List<Integer> tmp = new ArrayList<>();
+      int j = i;
+      int index = 0;
+      while(j > 0){
+        if((j&1) == 1){
+          tmp.add(nums[index]);
+        }
+        index ++;
+        j >>= 1;
+      }
+      rst.add(tmp);
+    }
+    return rst;
+  }
+
+  public List<List<Integer>> subsets2(int[] nums) {
+    List<List<Integer>> rst = new ArrayList<>();
+    int n = nums.length;
+    int[] choice = new int[n];
+    List<Integer> tmp = new ArrayList<>();
+    int index = 0;
+    choice[index] = 0;
+    while(index >= 0){
+      //处理当前层
+      while(choice[index] < 2){
+        if(index == n-1){
+          List<Integer> set = new ArrayList<>();
+          set.addAll(tmp);
+          if(choice[index] == 1){
+            set.add(nums[index]);
+          }
+          rst.add(set);
+          choice[index] ++;
+        }else{
+          if(choice[index] == 1){
+            tmp.add(nums[index]);
+          }
+          index ++;
+          choice[index] = 0;
+        }
+      }
+      index --;
+      if(index >= 0){
+        choice[index] ++;
+        int count = 0;
+        for(int i = 0; i < index; i++){
+          if(choice[i] == 1) count++;
+        }
+        tmp = tmp.subList(0, count);
+      }
+
+    }
+
+    return rst;
+  }
+
   public static void main(String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
