@@ -779,6 +779,47 @@ public class Solution {
     return rst;
   }
 
+  public int minimumTotal(List<List<Integer>> triangle) {
+    int minimum = 0;
+    int rows = triangle.size();
+    if(rows > 0){
+      int[] total = new int[rows];
+      total[0] = triangle.get(0).get(0);
+      minimum = total[0];
+      for(int row = 1; row < rows; row++){
+        List<Integer> rowList = triangle.get(row);
+        int buf = total[0] + rowList.get(0);
+        minimum = buf;
+        int n = rowList.size();
+        for(int i = 1; i < n; i ++){
+          int cur = rowList.get(i);
+          if(i == n-1){
+            int tmp = total[i-1] + cur;
+            minimum = Math.min(minimum, tmp);
+            total[i-1] = buf;
+            total[i] = tmp;
+          }else{
+            int tmp = Math.min(total[i-1] + cur, total[i] + cur);
+            minimum = Math.min(minimum, tmp);
+            total[i-1] = buf;
+            buf = tmp;
+          }
+        }
+      }
+    }
+
+    return minimum;
+  }
+
+  public int missingNumber(int[] nums) {
+    int n = nums.length;
+    int total = 0;
+    for(int num: nums){
+      total += num;
+    }
+    return (n*(n+1) >> 1) - total;
+  }
+
   public static void main( String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
