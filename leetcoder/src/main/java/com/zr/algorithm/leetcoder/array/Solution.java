@@ -744,7 +744,42 @@ public class Solution {
     return rst;
   }
 
-  public static void main(String[] args) {
+  private void subsetRecursive(List<List<Integer>> rst, int[] nums, int l, List<Integer> tmp){
+    if(l == nums.length){
+      rst.add(tmp);
+    }else{
+      subsetRecursive(rst, nums, l+1, new ArrayList<>(tmp));
+      tmp.add(nums[l]);
+      subsetRecursive(rst, nums, l+1, new ArrayList<>(tmp));
+    }
+  }
+
+  public List<List<Integer>> subsets3(int[] nums){
+    List<List<Integer>> rst = new ArrayList<>();
+    subsetRecursive(rst, nums, 0, new ArrayList<>());
+    return rst;
+  }
+
+  private void subsetWithDupRecursive(List<List<Integer>> rst, int[] nums, int l, List<Integer> tmp){
+    rst.add(new ArrayList<>(tmp));
+
+    for(int i = l; i < nums.length; i++){
+      if( i > l && nums[i] == nums[i-1]) continue;
+      tmp.add(nums[i]);
+      subsetWithDupRecursive(rst, nums, i+1, tmp);
+      tmp.remove(tmp.size()-1);
+    }
+  }
+
+
+  public List<List<Integer>> subsetsWithDup(int[] nums) {
+    List<List<Integer>> rst = new ArrayList<>();
+    Arrays.sort(nums);
+    subsetWithDupRecursive(rst, nums, 0, new ArrayList<>());
+    return rst;
+  }
+
+  public static void main( String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
 //    int count = solution.removeElement3(nums, 2);
