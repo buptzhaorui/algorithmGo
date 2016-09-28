@@ -1,5 +1,7 @@
 package com.zr.algorithm.leetcoder.array;
 
+import sun.reflect.generics.tree.Tree;
+
 import java.util.*;
 
 /**
@@ -818,6 +820,49 @@ public class Solution {
       total += num;
     }
     return (n*(n+1) >> 1) - total;
+  }
+
+  public class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x) { val = x; }
+  }
+
+  private TreeNode buildTree(int[] inorder, int i1,
+                             int[] postorder, int i2, int num) {
+    if(num == 0){
+      return null;
+    }else{
+      int val = postorder[i2+num-1];
+      TreeNode node = new TreeNode(val);
+      int i11 = i1;
+      while(inorder[i11++] != val);
+      node.left = buildTree(inorder, i1, postorder, i2, i11-i1-1);
+      node.right = buildTree(inorder, i11, postorder, i2+i11-i1-1, num+i1-i11);
+
+      return node;
+    }
+  }
+
+  private TreeNode buildTree2(int[] preorder, int i1,
+                             int[] inorder, int i2, int num) {
+    if(num == 0){
+      return null;
+    }else{
+      int val = preorder[i1];
+      TreeNode node = new TreeNode(val);
+      int i22 = i2;
+      while(inorder[i22++] != val);
+      node.left = buildTree2(preorder, i1+1, inorder, i2, i22-i2-1);
+      node.right = buildTree2(preorder, i1+i22-i2, inorder, i22, num+i2-i22);
+
+      return node;
+    }
+  }
+
+  public TreeNode buildTree(int[] inorder, int[] postorder) {
+    return buildTree(inorder, 0, postorder, 0, inorder.length);
   }
 
   public static void main( String[] args) {
