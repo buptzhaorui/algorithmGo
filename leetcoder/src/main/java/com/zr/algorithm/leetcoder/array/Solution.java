@@ -865,6 +865,27 @@ public class Solution {
     return buildTree(inorder, 0, postorder, 0, inorder.length);
   }
 
+  public int maxRotateFunction(int[] A) {
+    int n = A.length;
+    if(n == 0) return 0;
+    int sum = 0;
+    int F = 0;
+
+    for(int i = 0; i < n; i++){
+      sum += A[i];
+      F += i*A[i];
+    }
+
+    int max = F;
+
+    for(int i = 1; i < n; i++){
+      F = F + sum - n*A[n-i];
+      max = Math.max(max, F);
+    }
+
+    return max;
+  }
+
   public static void main( String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
