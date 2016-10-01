@@ -954,6 +954,55 @@ public class Solution {
 
   }
 
+  public boolean searchMatrix(int[][] matrix, int target) {
+    int m = matrix.length;
+    if(m == 0) return false;
+    int n = matrix[0].length;
+    int left = 0;
+    int right = m*n - 1;
+    while(left <= right){
+      int mid = (left + right) >> 1;
+      if(matrix[mid/n][mid%n] == target) return true;
+      else if(matrix[mid/n][mid%n] > target) right = mid - 1;
+      else left = mid + 1;
+    }
+    return false;
+  }
+
+  public boolean searchMatrix2(int[][] matrix, int target) {
+    int m = matrix.length;
+    if(m == 0) return false;
+    if(matrix[0][0] > target) return false;
+    int left = 0;
+    int right = m - 1;
+    while(left < right){
+      int mid = (left + right) >> 1;
+      if(matrix[mid][0] == target) return true;
+      else if(matrix[mid][0] > target) right = mid - 1;
+      else{
+        if(left + 1 == right){
+          if(matrix[right][0] > target) break;
+          else if(matrix[right][0] == target) return true;
+          else left = mid + 1;
+        }
+        else left = mid;
+      }
+    }
+
+    int n = matrix[left].length;
+    if(matrix[left][n-1] < target) return false;
+    int l2 = 0;
+    int r2 = n - 1;
+    while(l2 <= r2){
+      int mid = (l2 + r2) >> 1;
+      if(matrix[left][mid] == target) return true;
+      else if(matrix[left][mid] > target) r2 = mid - 1;
+      else l2 = mid + 1;
+    }
+
+    return false;
+  }
+
   public static void main( String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
