@@ -886,6 +886,52 @@ public class Solution {
     return max;
   }
 
+  public int removeDuplicates22(int[] nums) {
+    int index = 0;
+    int counter = 1;
+    int n = nums.length;
+    if( n == 0) return 0;
+    for(int i = 1; i < n; i++){
+      if(nums[i] == nums[index]){
+        if(++counter <= 2){
+          nums[++index] = nums[i];
+        }else{
+          while(++i < n && nums[i] == nums[index]);
+          if(i == n) return index+1;
+          nums[++index] = nums[i];
+          counter = 1;
+        }
+      }else{
+        nums[++index] = nums[i];
+        counter = 1;
+      }
+    }
+    return index+1;
+  }
+
+  public boolean exist(char[][] board, String word) {
+    char[] w = word.toCharArray();
+    for(int i = 0; i < board.length; i++){
+      for(int j = 0; j < board[i].length; j++){
+        if(exist(board, w, j, i, 0)) return true;
+      }
+    }
+    return false;
+  }
+
+  private boolean exist(char[][] board, char[] word, int x, int y, int l){
+    if(l == word.length) return true;
+    if( x < 0 || y < 0 || y == board.length || x == board[y].length) return false;
+    if(board[y][x] != word[l]) return false;
+    board[y][x] ^= 256;
+    boolean exist = exist(board, word, x-1, y, l+1) ||
+      exist(board, word, x+1, y, l+1) ||
+      exist(board, word, x, y-1, l+1) ||
+      exist(board, word, x, y+1, l+1);
+    board[y][x] ^= 256;
+    return exist;
+  }
+
   public static void main( String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
