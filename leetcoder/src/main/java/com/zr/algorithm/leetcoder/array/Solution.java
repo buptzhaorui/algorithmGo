@@ -932,6 +932,28 @@ public class Solution {
     return exist;
   }
 
+  public void sortColors(int[] nums) {
+    int left = 0;
+    int right = nums.length;
+
+    for(int i = left; i < right; ){
+      if(nums[i] == 0){
+        nums[i] = nums[left];
+        nums[left] = 0;
+        left++;
+        i++;
+      }else if(nums[i] == 2){
+        nums[i] = nums[right];
+        nums[right] = 2;
+        right--;
+        i++;
+      }else{
+        i++;
+      }
+    }
+
+  }
+
   public static void main( String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
