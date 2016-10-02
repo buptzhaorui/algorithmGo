@@ -1106,6 +1106,45 @@ public class Solution {
     return rst;
   }
 
+  public List<Integer> majorityElement2(int[] nums) {
+    List<Integer> rst = new ArrayList<>();
+    int n = nums.length;
+    if(n == 0) return rst;
+    int candidate1 = 0;
+    int candidate2 = 0;
+    int count1 = 0;
+    int count2 = 0;
+
+    for(int num: nums){
+      if(num == candidate1){
+        count1++;
+      }else if(num == candidate2){
+        count2++;
+      }else if(count1 == 0){
+        count1++;
+        candidate1=num;
+      }else if(count2 == 0){
+        count2++;
+        candidate2=num;
+      }else{
+        count1--;
+        count2--;
+      }
+    }
+
+    int n1 = 0;
+    int n2 = 0;
+
+    for(int num: nums){
+      if(num == candidate1) n1++;
+      if(num == candidate2) n2++;
+    }
+
+    if(n1 > n/3) rst.add(candidate1);
+    if(candidate1 != candidate2 && n2 > n/3) rst.add(candidate2);
+    return rst;
+  }
+
   public static void main( String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
