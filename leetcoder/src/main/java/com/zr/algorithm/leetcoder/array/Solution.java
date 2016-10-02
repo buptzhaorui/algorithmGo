@@ -1052,6 +1052,41 @@ public class Solution {
     return rst;
   }
 
+  public List<Integer> spiralOrder(int[][] matrix) {
+    List<Integer> rst = new ArrayList<>();
+
+    int m = matrix.length;
+    if(m == 0) return rst;
+
+    int left = 0;
+    int right = matrix[0].length - 1;
+    int top = 0;
+    int bottom = m - 1;
+
+    while(left <= right && top <= bottom){
+      for(int i = left; i <= right; i++){
+        rst.add(matrix[top][i]);
+      }
+      top++;
+      for(int i = top; i <= bottom; i++){
+        rst.add(matrix[i][right]);
+      }
+      right--;
+      for(int i = right; i >= left; i--){
+        if(top <= bottom)
+          rst.add(matrix[bottom][i]);
+      }
+      bottom--;
+      for(int i = bottom; i >= top; i--){
+        if(left <= right)
+          rst.add(matrix[i][left]);
+      }
+      left++;
+    }
+
+    return rst;
+  }
+
   public static void main( String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
