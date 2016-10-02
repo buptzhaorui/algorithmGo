@@ -1021,6 +1021,37 @@ public class Solution {
     }
   }
 
+
+  public int[][] generateMatrix(int n) {
+    int[][] rst = new int[n][n];
+    int left = 0;
+    int right = n - 1;
+    int top = 0;
+    int bottom = n - 1;
+    int num = 1;
+
+    while(left <= right && top <= bottom){
+      for(int i = left; i <= right; i++){
+        rst[top][i] = num++;
+      }
+      top++;
+      for(int i = top; i <= bottom; i++){
+        rst[i][right] = num++;
+      }
+      right--;
+      for(int i = right; i >= left; i--){
+        rst[bottom][i] = num++;
+      }
+      bottom--;
+      for(int i = bottom; i >= top; i--){
+        rst[i][left] = num++;
+      }
+      left++;
+    }
+
+    return rst;
+  }
+
   public static void main( String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution();
