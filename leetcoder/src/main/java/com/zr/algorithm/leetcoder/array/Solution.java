@@ -1145,9 +1145,46 @@ public class Solution {
     return rst;
   }
 
+  public boolean canJump(int[] nums) {
+    int index = 0, end = 0;
+    while(index <= end){
+      if(end >= nums.length-1) return true;
+      if(nums[index] == 0 && index == end) return false;
+      end = Math.max(end, index + nums[index]);
+      index++;
+    }
+    return false;
+  }
+
+  public int maxSubArray(int[] nums) {
+    int max = Integer.MIN_VALUE;
+    int sum = 0;
+
+    for(int num: nums){
+      sum = Math.max(sum+num, num);
+      max = Math.max(sum, max);
+    }
+
+    return max;
+  }
+
+  public void rotate(int[][] matrix) {
+    int n = matrix.length;
+    int tmp;
+    for(int i = 0; i < Math.ceil((double)n/2); i++){
+      for(int j = i; j < n - 1 - i; j ++){
+        tmp = matrix[i][j];
+        matrix[i][j] = matrix[n-1-j][i];
+        matrix[n-1-j][i] = matrix[n-1-i][n-1-j];
+        matrix[n-1-i][n-1-j] = matrix[j][n-1-i];
+        matrix[j][n-1-i] = tmp;
+      }
+    }
+  }
+
   public static void main( String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
-    Solution solution = new Solution();
+    Solution solution = new Solution(); 
 //    int count = solution.removeElement3(nums, 2);
 //    System.out.println("count: " + count);
 //    for(int i = 0; i < count; i++){
