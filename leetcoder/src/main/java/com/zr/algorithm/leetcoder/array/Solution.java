@@ -1182,6 +1182,34 @@ public class Solution {
     }
   }
 
+  public List<String> summaryRanges(int[] nums) {
+    List<String> rst = new ArrayList<>();
+    int n = nums.length;
+    if(n == 0) return rst;
+
+    int start = nums[0], end = nums[0];
+    for(int i = 1; i < n; i++){
+      if(nums[i] == end + 1){
+        end = end + 1;
+      }else{
+        if(start == end){
+          rst.add(start + "");
+        }else{
+          rst.add(start + "->" + end);
+        }
+        start = nums[i];
+        end = nums[i];
+      }
+    }
+    if(start == end){
+      rst.add(start + "");
+    }else{
+      rst.add(start + "->" + end);
+    }
+
+    return rst;
+  }
+
   public static void main( String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution(); 
