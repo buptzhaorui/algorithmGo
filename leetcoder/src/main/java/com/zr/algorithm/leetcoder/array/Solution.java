@@ -1210,6 +1210,41 @@ public class Solution {
     return rst;
   }
 
+  public List<List<Integer>> combinationSum3(int k, int n) {
+    List<List<Integer>> rst = new ArrayList<>();
+
+    int[] tmp = new int[k+1];
+    int level = 1;
+    tmp[level] = 1;
+    int sum = 0;
+
+    while(level > 0){
+      while(tmp[level] <= n-sum){
+        sum += tmp[level];
+        if(level == k-1){
+          tmp[k] = n-sum;
+          if(tmp[k] > tmp[level]){
+            List<Integer> arr = new ArrayList<>();
+            for(int j = 1; j <= k; j++){
+              arr.add(tmp[j]);
+            }
+            rst.add(arr);
+          }
+          sum -= tmp[level];
+          tmp[level]++;
+        }else{
+          level ++;
+          tmp[level] = tmp[level-1] + 1;
+        }
+      }
+      sum -= tmp[level];
+      level --;
+      tmp[level] ++;
+    }
+
+    return rst;
+  }
+
   public static void main( String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution(); 
