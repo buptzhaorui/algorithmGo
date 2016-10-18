@@ -1219,11 +1219,11 @@ public class Solution {
     int sum = 0;
 
     while(level > 0){
-      while(tmp[level] <= n-sum){
+      while(tmp[level] <= n-sum && tmp[level] <= 9){
         sum += tmp[level];
         if(level == k-1){
           tmp[k] = n-sum;
-          if(tmp[k] > tmp[level]){
+          if(tmp[k] > tmp[level] && tmp[k] <= 9){
             List<Integer> arr = new ArrayList<>();
             for(int j = 1; j <= k; j++){
               arr.add(tmp[j]);
@@ -1237,8 +1237,8 @@ public class Solution {
           tmp[level] = tmp[level-1] + 1;
         }
       }
-      sum -= tmp[level];
       level --;
+      sum -= tmp[level];
       tmp[level] ++;
     }
 
