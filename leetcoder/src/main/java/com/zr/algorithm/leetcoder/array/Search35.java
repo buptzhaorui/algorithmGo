@@ -7,6 +7,6 @@ package com.zr.algorithm.leetcoder.array;
  */
 public class Search35 {
   public int searchInsert(int[] nums, int target) {
-
+    return 0;
   }
 }
