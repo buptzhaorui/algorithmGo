@@ -1245,6 +1245,27 @@ public class Solution {
     return rst;
   }
 
+  private void combine(List<List<Integer>> rst, List<Integer> tmp, int start, int k, int n) {
+    if(tmp.size() == k && n == 0){
+      rst.add(new ArrayList<>(tmp));
+    }else{
+      for(int j = start; j <= n && j <= 9; j++){
+        tmp.add(j);
+        combine(rst, tmp, j+1, k, n-j);
+        tmp.remove(tmp.size()-1);
+      }
+    }
+
+  }
+
+  public List<List<Integer>> combinationSum32(int k, int n) {
+    List<List<Integer>> rst = new ArrayList<>();
+
+    combine(rst, new ArrayList<>(), 1, k, n);
+
+    return rst;
+  }
+
   public static void main( String[] args) {
     int[] nums = new int[]{3,2,34,2,2};
     Solution solution = new Solution(); 
