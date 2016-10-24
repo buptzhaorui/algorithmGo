@@ -1,18 +1,16 @@
 package com.zr.algorithm.leetcoder.array;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
 
 /**
  * User: zhaorui
  * Date: 2016/10/24
- * Time: 16:07
+ * Time: 22:30
  */
-public class Sum15 {
-  public List<List<Integer>> threeSum(int[] nums) {
-    List<List<Integer>> rst = new ArrayList<>();
+public class Sum16 {
+  public int threeSumClosest(int[] nums, int target) {
+    int rst = Integer.MAX_VALUE;
+    int minDiff = Integer.MAX_VALUE;
     Arrays.sort(nums);
     int first = 0;
     int n = nums.length;
@@ -21,15 +19,22 @@ public class Sum15 {
       int third = n - 1;
       while(second < third){
         int sum = nums[first] + nums[second] + nums[third];
-        if(sum == 0){
-          rst.add(Arrays.asList(nums[first], nums[second], nums[third]));
-          second++; third--;
-          while(second < third && nums[second] == nums[second-1]) second ++;
-          while(second < third && nums[third] == nums[third+1]) third --;
-        }else if(sum > 0){
+        if(sum == target){
+          return target;
+        }else if(sum > target){
+          int diff = Math.abs(sum - target);
+          if(diff < minDiff) {
+            minDiff = diff;
+            rst = sum;
+          }
           third --;
           while(second < third && nums[third] == nums[third+1]) third --;
         }else{
+          int diff = Math.abs(sum - target);
+          if(diff < minDiff) {
+            minDiff = diff;
+            rst = sum;
+          }
           second ++;
           while(second < third && nums[second] == nums[second-1]) second ++;
         }
