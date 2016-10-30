@@ -1,4 +1,4 @@
-package com.zr.algorithm.leetcoder.array;
+package com.zr.algorithm.leetcoder.hashtable;
 
 import java.util.HashMap;
 import java.util.HashSet;
