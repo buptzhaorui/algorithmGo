@@ -17,4 +17,14 @@ public class Find389 {
 
     return (char)rst;
   }
+
+  public char findTheDifference2(String s, String t) {
+    int i = 0, res = 0;
+
+    for (i = 0; i < s.length(); i++) {
+      res ^= s.charAt(i) ^ t.charAt(i);
+    }
+
+    return (char)(res ^ t.charAt(i));
+  }
 }
