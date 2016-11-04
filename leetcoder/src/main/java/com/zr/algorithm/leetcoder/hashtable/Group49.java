@@ -32,13 +32,10 @@ public class Group49 {
         List<String> newList = new ArrayList<>();
         newList.add(s);
         map.put(code, newList);
+        rst.add(newList);
       }else{
         oldList.add(s);
       }
-    }
-
-    for(List<String> l: map.values()){
-      rst.add(l);
     }
 
     return rst;
