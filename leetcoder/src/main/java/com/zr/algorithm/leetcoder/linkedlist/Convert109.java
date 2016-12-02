@@ -35,6 +35,20 @@ public class Convert109 {
     return root;
   }
 
+  private ListNode node = null;
+
+  private TreeNode toBST3(int start, int end) {
+    if(start > end) return null;
+
+    int mid = start + (end - start) / 2;
+    TreeNode left = toBST3(start, mid-1);
+    TreeNode root = new TreeNode(node.val);
+    root.left = left;
+    node = node.next;
+    root.right = toBST3(mid+1, end);
+    return root;
+  }
+
   public TreeNode sortedListToBST(ListNode head) {
     ArrayList<Integer> arr = new ArrayList<>();
     while(head != null){
