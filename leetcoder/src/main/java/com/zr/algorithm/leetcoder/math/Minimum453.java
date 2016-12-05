@@ -1,6 +1,8 @@
 package com.zr.algorithm.leetcoder.math;
 
 import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * User: zhaorui
@@ -8,25 +10,24 @@ import java.util.*;
  * Time: 13:43
  */
 public class Minimum453 {
-  private void sortHelper(int[] nums, int index) {
-    while(index > 0 && nums[index] < nums[index-1]){
-      int tmp = nums[index];
-      nums[index] = nums[index-1];
-      nums[index-1] = tmp;
-      index --;
-    }
-  }
+  /**
+   * Incrementing all but one is equivalent to decrementing that one.
+   * So let's do that instead. How many single-element decrements to make all equal?
+   * No point to decrementing below the current minimum,
+   * so how many single-element decrements to make all equal to the current minimum?
+   * Just take the difference from
+   * what's currently there (the sum) to what we want (n times the minimum).
+   */
   public int minMoves(int[] nums) {
-    int n = nums.length;
-    if(n < 2) return 0;
-    Arrays.sort(nums);
-    int count = 0;
-    while(nums[0] != nums[n-1]){
-      nums[n-1] --;
+    return IntStream.of(nums).sum() - nums.length * IntStream.of(nums).min().orElse(0);
+  }
 
-      count++;
-    }
-
-    return count;
+  public int minMoves2(int[] nums) {
+    if (nums.length == 0) return 0;
+    int min = nums[0];
+    for (int n : nums) min = Math.min(min, n);
+    int res = 0;
+    for (int n : nums) res += n - min;
+    return res;
   }
 }
