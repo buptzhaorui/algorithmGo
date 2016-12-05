@@ -9,11 +9,11 @@ import java.util.*;
  */
 public class Minimum453 {
   private void sortHelper(int[] nums, int index) {
-    while(nums[index] > nums[index+1]){
+    while(index > 0 && nums[index] < nums[index-1]){
       int tmp = nums[index];
-      nums[index] = nums[index+1];
-      nums[index+1] = tmp;
-      index ++;
+      nums[index] = nums[index-1];
+      nums[index-1] = tmp;
+      index --;
     }
   }
   public int minMoves(int[] nums) {
