@@ -46,8 +46,11 @@ public class Implement28 {
       if(j == -1 || haystack.charAt(i) == needle.charAt(j)){
         i++; j++;
         if(j == needle.length()) return i-j;
+      }else{
+        j = next[j];
       }
     }
+    return -1;
   }
 }
 
