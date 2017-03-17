@@ -10,7 +10,8 @@ import java.util.concurrent.*;
  */
 public class Demo {
   HashMap<Integer, Integer> map = new HashMap<>();
-  public void test(){
+  Stack<Character> stack = new Stack<>();
 
+  public void test(){
   }
 }
