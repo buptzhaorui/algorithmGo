@@ -6,16 +6,22 @@ package concurrent;
  * Time: 20:25
  */
 public class ThreadLocalDemo implements Runnable {
-  static ThreadLocal<Integer> local = new ThreadLocal<>();
-  private int i;
+  static class O{
+    int i;
+    O(int i){
+      this.i = i;
+    }
+  }
+  static ThreadLocal<O> local = new ThreadLocal<>();
+  private O o;
 
   public ThreadLocalDemo(int i){
-    this.i = i;
+    this.o = new O(i);
   }
 
   @Override
   public void run() {
-    local.set(i);
+    local.set(o);
 
     try {
       Thread.sleep(1000);
@@ -23,7 +29,7 @@ public class ThreadLocalDemo implements Runnable {
       e.printStackTrace();
     }
 
-    System.out.println("Thread" + i + ":" + local.get());
+    System.out.println("Thread" + o.i + ":" + local.get().i);
   }
 
   public static void main(String[] args) throws InterruptedException {
