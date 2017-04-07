@@ -8,9 +8,18 @@ import java.util.Scanner;
  * Time: 20:46
  */
 public class Main3 {
+
   public static void main(String[] args){
-    int leftNum = 0, rightNum = 0;
-    String s = new Scanner(System.in).nextLine();
+
+    Scanner in = new Scanner(System.in);
+    int n = in.nextInt(), k = in.nextInt();
+    int rst2 = n/(k+k+1);
+    int remain = n%(k+k+1);
+    int rst1 = remain/(k+1);
+    remain = remain%(k+1);
+    if(remain == k)
+      rst1++;
+    System.out.println(rst2*2+rst1);
 
   }
 }
